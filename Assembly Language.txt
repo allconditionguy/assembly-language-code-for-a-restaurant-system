@@ -1,0 +1,239 @@
+call _returnMenu
+    jmp exit_program
+
+printLunchOption2Price:
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, LunchOpt2Price
+    mov edx, LunchOpt2Price_length
+    int 0x80
+    
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, newline
+    mov edx, 1
+    int 0x80
+    
+    call _returnMenu
+    jmp exit_program
+
+printLunchOption3Price:
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, LunchOpt3Price
+    mov edx, LunchOpt3Price_length
+    int 0x80
+    
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, newline
+    mov edx, 1
+    int 0x80
+    
+    call _returnMenu
+    jmp exit_program
+
+printLunchOption4Price:
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, LunchOpt4Price
+    mov edx, LunchOpt4Price_length
+    int 0x80
+    
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, newline
+    mov edx, 1
+    int 0x80
+    
+    call _returnMenu
+    jmp exit_program
+
+Dinner:
+     ; Print Dinner Menu
+ mov eax, 4
+ mov ebx, 1
+ mov edx, DinnerOpt1_length
+ mov ecx, DinnerOpt1
+ int 0x80
+
+ mov eax, 4
+ mov ebx, 1
+ mov edx, DinnerOpt2_length
+ mov ecx, DinnerOpt2
+ int 0x80
+
+ mov eax, 4
+ mov ebx, 1
+ mov edx, DinnerOpt3_length
+ mov ecx, DinnerOpt3
+ int 0x80
+
+ mov eax, 4
+ mov ebx, 1
+ mov edx, DinnerOpt4_length
+ mov ecx, DinnerOpt4
+ int 0x80
+
+ ; Prompt for dinner option
+ mov eax, 4
+ mov ebx, 1
+ mov edx, DinnerOpt_length
+ mov ecx, DinnerOpt
+ int 0x80
+
+ ; Get user input for dinner option
+ mov eax, 3
+ mov ebx, 0
+ mov ecx, DinnerOption
+ mov edx, 2
+ int 0x80
+ 
+ mov eax, 4
+        mov ebx, 1
+        mov ecx, newline
+        mov edx, 1
+        int 0x80
+
+ _DinnerChoiceHandler:
+ cmp byte [DinnerOption], '1'
+ je printDinnerOption1Price
+ cmp byte [DinnerOption], '2'
+ je printDinnerOption2Price
+ cmp byte [DinnerOption], '3'
+ je printDinnerOption3Price
+ cmp byte [DinnerOption], '4'
+ je printDinnerOption4Price
+ jmp _invalidChoice
+ jmp exit_program
+
+printDinnerOption1Price:
+ mov eax, 4
+ mov ebx, 1
+ mov ecx, DinnerOpt1Price
+ mov edx, DinnerOpt1Price_length
+ int 0x80
+ 
+ mov eax, 4
+    mov ebx, 1
+    mov ecx, newline
+    mov edx, 1
+    int 0x80
+ 
+ call _returnMenu
+
+ jmp exit_program
+
+printDinnerOption2Price:
+ mov eax, 4
+ mov ebx, 1
+ mov ecx, DinnerOpt2Price
+ mov edx, DinnerOpt2Price_length
+ int 0x80
+ 
+ mov eax, 4
+    mov ebx, 1
+    mov ecx, newline
+    mov edx, 1
+    int 0x80
+    
+ call _returnMenu
+ jmp exit_program
+
+printDinnerOption3Price:
+ mov eax, 4
+ mov ebx, 1
+ mov ecx, DinnerOpt3Price
+ mov edx, DinnerOpt3Price_length
+ int 0x80
+ 
+ mov eax, 4
+    mov ebx, 1
+    mov ecx, newline
+    mov edx, 1
+    int 0x80
+    
+ call _returnMenu
+ jmp exit_program
+
+printDinnerOption4Price:
+ mov eax, 4
+ mov ebx, 1
+ mov ecx, DinnerOpt4Price
+ mov edx, DinnerOpt4Price_length
+ int 0x80
+ 
+ mov eax, 4
+    mov ebx, 1
+    mov ecx, newline
+    mov edx, 1
+    int 0x80
+    
+ call _returnMenu
+ jmp exit_program
+
+
+
+_invalidChoice:
+    ; Print invalid choice message
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, Invalid
+    mov edx, Invalid_length
+    int 0x80
+    jmp exit_program
+    ret
+    
+_returnMenu:
+  ;return menu process
+ mov eax, 4
+ mov ebx, 1
+ mov ecx, ReturnMenu
+ mov edx, ReturnMenu_length
+ int 0x80
+ 
+ mov eax, 4
+ mov ebx, 1
+ mov ecx, ReturnMenu1Options
+ mov edx, ReturnMenu1Options_length
+ int 0x80
+ 
+ mov eax, 4
+ mov ebx, 1
+ mov ecx, ReturnMenu2Options
+ mov edx, ReturnMenu2Options_length
+ int 0x80
+
+ mov eax, 4
+ mov ebx, 1
+ mov ecx, ReturnMenu3Options
+ mov edx, ReturnMenu3Options_length
+ int 0x80
+ 
+ mov eax, 4
+ mov ebx, 1
+ mov ecx, ReturnMenu4Options
+ mov edx, ReturnMenu4Options_length
+ int 0x80
+ 
+ mov eax, 4
+        mov ebx, 1
+        mov ecx, newline
+        mov edx, 1
+        int 0x80
+ 
+ mov eax, 3
+ mov ebx, 0
+ mov ecx, ReturnMenuChoice
+ mov edx, 2
+ int 0x80
+
+ cmp byte [ReturnMenuChoice], '1'
+ je Breakfast
+ cmp byte [ReturnMenuChoice], '2'
+ je Lunch
+ cmp byte [ReturnMenuChoice], '3'
+ je Dinner
+ cmp byte [ReturnMenuChoice], '4'
+ jmp exit_program
+ jmp _invalidChoice
